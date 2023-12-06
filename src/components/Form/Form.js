@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from '../../redux/selectors';
 
 import { addContact } from '../../redux/operations';
+import Notiflix from 'notiflix';
 
 const FormSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -24,8 +25,11 @@ const ContactForm = () => {
           contact.name.toLowerCase().trim() === name.toLowerCase().trim()
       )
     ) {
-      return alert(`${name} is already in contacts!`);
+      resetForm();
+      Notiflix.Notify.failure(`${name} is already in contacts!`);
+      return;
     }
+
     dispatch(addContact({ name, number }));
     resetForm();
   };

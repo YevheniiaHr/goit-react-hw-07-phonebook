@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from '../redux/operations';
-import { RotatingLines } from 'react-loader-spinner';
+import { Loader } from './Loader';
 
 export const App = () => {
   const contacts = useSelector(selectContacts);
@@ -34,15 +34,7 @@ export const App = () => {
         {contacts.length !== 0 ? (
           <>
             <Filter />
-            {isLoading && !error && (
-              <RotatingLines
-                strokeColor="grey"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="96"
-                visible={true}
-              />
-            )}
+            {isLoading && !error && <Loader />}
             <ContactList />
           </>
         ) : (
